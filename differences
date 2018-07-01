@@ -1,0 +1,7 @@
+# Here are some differences between Python2.7 and Python 3,which may lead to bug.
+
+#1、In Python 2.7,You can use "print \'str'".But in Python 3,after "print" you must use() to complete this statement.
+
+#2、In Python 2.7,generator.next().In Python 3,next(generator).
+
+#3、In python 2.7,what function "filter" returns is a list.But in python 3,what function "filter"returns is a generator.
