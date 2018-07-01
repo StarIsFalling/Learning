@@ -4,4 +4,8 @@
 
 #2、In Python 2.7,generator.next().In Python 3,next(generator).
 
-#3、In python 2.7,what function "filter" returns is a list.But in python 3,what function "filter"returns is a generator.
+#3、In python 2.7,what function "filter" returns is a list.But in python 3,what function "filter"returns is a generator.(test2.py)
+
+#4、In python 2.7,None.split() will cause error.But in python 3,None.split() == ''(test2.py)
+
+#5、In python 3,There is a function "nonlocal".But in python 2.7,it doesn't exist.(test4.py)
