@@ -9,3 +9,5 @@
 #4、In python 2.7,None.split() will cause error.But in python 3,None.split() == ''(test2.py)
 
 #5、In python 3,There is a function "nonlocal".But in python 2.7,it doesn't exist.(test4.py)
+
+#6、In python 3,type(3)returns <class'int'>.In python 2.7,it returns <type'int'>.(Which may explain sth between class and type?)
