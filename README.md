@@ -12,3 +12,4 @@ some mistakes about this book:
 5、pg112 代码会生成4个文件而不是三个。.meta保存了计算图结构，.index保存了当前参数名，.data保存了当前参数值，checkpoint保存记录信息，通过它可以定位最新保存的类型。在5.4.2节中则提出了修改。这是由于tensorflow版本造成的，0.11版本后的都是四个文件，本书第二版主要针对的是1.4版本，而不是第一版的0.9.
 5.5、【不是错误，但在idle中无法实现tensorflow模型持久化，无论是保存还是加载都会报错】
 6、 pg125 文字段tensorflow拼写错误。
+6.5 pg127中依据PEP8,最好将if regularizer != NONE 改为 if regularizer is not NONE
