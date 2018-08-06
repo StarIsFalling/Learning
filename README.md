@@ -13,3 +13,4 @@ some mistakes about this book:
 5.5、【不是错误，但在idle中无法实现tensorflow模型持久化，无论是保存还是加载都会报错】
 6、 pg125 文字段tensorflow拼写错误。
 6.5 pg127中依据PEP8,最好将if regularizer != NONE 改为 if regularizer is not NONE
+7、 pg163中，file_list = [] 应该放在for extension in extensions里，不然图片重复计算。另外，在window下，文件扩展名不区分大小写，所以，extensions里可以去掉大写部分。
