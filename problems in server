@@ -1,0 +1,41 @@
+最近在写服务器端的时候，在长连接的时候会报错。
+Exception in thread Thread-2:
+Traceback (most recent call last):
+  File "/usr/lib/python3.5/threading.py", line 914, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.5/threading.py", line 862, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/ubuntu/meanning_project/server/server_web/codec_connection.py", line 215, in connection_1
+    data = s.recv(1024)
+ConnectionResetError: [Errno 104] Connection reset by peer
+经查阅，可能错误原因如下：
+1.服务器的并发连接数超过了其承载量，服务器会将其中一些连接关闭
+
+如果知道实际连接服务器的并发客户端数并没有超过服务器的承载量，则有可能是中了病毒或者木马，引起网络流量异常。
+
+解决方法：可以使用netstat -an命令查看网络连接情况。
+
+2.客户端关掉了浏览器，而服务器还在给客户端发送数据
+
+3.浏览器按了Stop
+
+这两种情况一般不会影响服务器，但是如果对异常信息没有特别处理，有可能在服务器的日志文件中，重复出现该异常，造成服务器日志文件过大，影响服务器的运行。
+
+解决方法：可以对引起异常的部分，使用try…catch捕获异常，然后不输出或只输出一句提示信息，避免输出全部异常信息。
+
+4.防火墙的问题
+
+如果网络连接通过防火墙，而防火墙一般都会有超时的机制，在网络连接长时间不传输数据时，会关闭这个TCP的会话，关闭后再读写，就会导致异常。
+
+解决方法：如果关闭防火墙，解决了问题，需要重新配置防火墙，或者自己编写程序实现TCP的长连接。
+实现TCP的长连接，需要自己定义心跳协议，每隔一段时间，发送一次心跳协议，双方维持连接。
+
+5.JSP的buffer问题
+
+JSP页面缺省缓存为8K,当JSP页面数据比较大的时候，有可能JSP没有完全传递给浏览器。
+
+解决方法：可以适当调整buffer的大小。
+
+<%@ page buffer="100k"%>
+其中1因为我底端写的是select模型的并发，加上连接设备不多，输出的inputs和outputs长度也不大，应该不是1的问题。
+3这边也没写过这种指令。目前在试关闭防火墙4的操作。最后原因日后填坑。
