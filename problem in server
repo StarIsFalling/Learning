@@ -37,5 +37,32 @@ JSP页面缺省缓存为8K,当JSP页面数据比较大的时候，有可能JSP�
 解决方法：可以适当调整buffer的大小。
 
 <%@ page buffer="100k"%>
-其中1因为我底端写的是select模型的并发，加上连接设备不多，输出的inputs和outputs长度也不大，应该不是1的问题。
-3这边也没写过这种指令。4关闭防火墙也没用
+
+
+经实验，我这边问题出在2上。
+问题代码如下：
+for s in readable:
+            if s is sock:
+                client, address = s.accept()
+                logger.push_operate_log.info("address:%s  action:%s\r\n" % (address[0], 'connect'))
+                client.setblocking(0)
+                inputs.append(client)
+                message_queues[client] = Queue()
+            else:
+                try:
+                    data = s.recv(1024*3)
+                except:
+                    pass
+                else:
+                    if data:
+                        print('received [%s] from %s' % (data, s.getpeername()[0]))
+                        message_queues[s].put(data)
+                        if s not in outputs:
+                            outputs.append(s)
+ 由于当时想着跟客户端保持长连接，不主动断开套接字，所以except中移除队列指令没写。而这正是导致connection reset by peer的原因。移除队列不代表断开连接。
+ 在except后加上代码:
+                   if s in outputs:
+                       outputs.remove(s)
+                       inputs.remove(s)
+                       del message_queues[s]
+ 就解决了问题
