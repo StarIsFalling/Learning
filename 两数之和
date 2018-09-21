@@ -1,0 +1,48 @@
+第一次写的代码：
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+          :type nums: List[int]
+          :type target: int
+          :rtype: List[int]
+        """
+        lenth = len(nums)
+        for i in range(lenth):
+            for j in range(i+i,lenth):
+                if nums[i] + nums[j] == target:
+                    return([i,j])
+时间复杂度o(n^2)，耗时3600+ms来解决29组测试数据。
+第二次写的代码：
+    改进之处：用hash表原理来测试，时间复杂度降到o(n)
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+          :type nums: List[int]
+          :type target: int
+          :rtype: List[int]
+        """
+        lenth = len(nums)
+        a = {}
+        for i in range(lenth):
+            if (target - nums[i]) in a.keys():
+                return([a[target-nums[i],i])
+            a[nums[i]] = i
+耗时600ms，还是要改进
+第三次写的代码：
+    改进之处：用了enumerate函数，不用在内部循环体内提每一个数;dict判断在不在字典内直接用in dict判断，而无需用 in dict.kesy()
+    class Solution(object):
+    def twoSum(self, nums, target):
+        """
+          :type nums: List[int]
+          :type target: int
+          :rtype: List[int]
+        """
+        a = {}
+        for i,num in enumerate(nums):
+            if (target - num) in a:
+                return([a[target - num],i])
+            a[num] = i
+耗时28ms
+跟最短耗时（20ms）代码比较：
+还有改进之处:
+    target - num 语句在代码里执行了2次，可以在循环体里用空间换时间 b = target - num 来再提速
