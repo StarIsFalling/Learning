@@ -30,5 +30,5 @@ class Solution(object):
         result = cmp(x, 0) * int(str(abs(x))[::-1])
         if b > max or b < min:
              return(0)
-         return(b)
+        return(b)
  
