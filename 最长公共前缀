@@ -1,0 +1,25 @@
+第一次用时，28ms。
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ''
+        a = strs[0]
+        l = len(strs[0])
+        for i in strs[1:]:
+            if len(i)<l:
+                l = len(i)
+                a = i
+        for i in strs:
+            if not a:
+                return a
+            if a == i:
+                continue
+            for index,j in enumerate(a):
+                if j!=i[index]:
+                    a = a[:index]
+                    break
+        return a
