@@ -1,0 +1,48 @@
+第一次尝试,112ms
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        num = 0
+        dict = {'IV':4,'IX':9,'XL':40,'XC':90,'CD':400,'CM':900}
+        dict2 = {'I':1,'V':5,'X':10,'L':50,'C':100,'D':500,'M':1000}
+        for i in dict.keys():
+            if not s:
+                return num
+            if i not in s:
+                continue
+            a = s.split(i)
+            num += (len(a)-1)*dict[i]
+            s = ''.join(a)
+        for i in dict2.keys():
+            if not s:
+                return num
+            if i not in s:
+                continue
+            a = s.split(i)
+            num += (len(a)-1)*dict2[i]
+            s = ''.join(a)
+        return num
+       
+第二次尝试，利用从左到右由大到小，如果中途出现比之前更大的，减2次就好。然后转换。96ms
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        dict = {'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000}
+        sum = 0
+        previous = float('Inf')         #正无穷
+        
+        for i in s:
+            current = dict[i]
+            if previous<current:
+                sum -= 2*previous
+            sum += current
+            previous = current
+        
+        return sum
+
