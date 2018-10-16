@@ -1,0 +1,30 @@
+第一次尝试,28ms
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        if n == 1:
+            return '1'
+        if n == 2:
+            return '11'
+        a = '21'
+        for i in range(n-3):
+            c = a[0]
+            result = ''
+            num = 1
+            for j in a[1:]:
+                if j == c:
+                    num += 1
+                else:
+                    result += str(num)
+                    result += c
+                    c = j
+                    num = 1
+           
+            result += str(num)
+            result += c
+            a = result
+            
+        return a
