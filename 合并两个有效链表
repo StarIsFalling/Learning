@@ -1,0 +1,69 @@
+第一次尝试，44ms
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        rtype = ListNode(0)
+        a = rtype
+        while True:
+            if l1 and l2:
+                if l1.val<l2.val:
+                    a.next = l1
+                    l1 = l1.next
+                    a = a.next
+                    continue
+                else:
+                    a.next = l2
+                    l2 = l2.next
+                    a = a.next
+                    continue
+            elif l1:
+                a.next = l1
+                l1 = l1.next
+                a = a.next
+                continue
+            elif l2:
+                a.next = l2
+                l2 = l2.next
+                a = a.next
+                continue
+            break
+        return rtype.next
+第二次尝试，在l1和l2一列全加入排序列表后可以进行优化,32ms。
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        rtype = ListNode(0)
+        a = rtype
+        while l1 and l2:
+            if l1.val<l2.val:
+                a.next = l1
+                l1 = l1.next
+            else:
+                a.next = l2
+                l2 = l2.next
+            a = a.next
+        if l1:
+            a.next = l1
+        elif l2: 
+            a.next = l2
+        return rtype.next
