@@ -1,0 +1,40 @@
+第一次尝试，74ms
+if (s.count('(') != s.count(')')) or (s.count('[') != s.count(']')) or (s.count('{') != s.count('}')):
+            return False
+        dict = ['()','[]','{}']
+        while len(s)>1:
+            sig = True
+            for i in dict:
+                a = s.split(i)
+                if len(a)>1:
+                    sig = False
+                    s = ''.join(a)
+            if sig:
+                break
+        if s:
+            return False
+        else:
+            return True
+
+
+第二次尝试，34ms。
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if not s:
+            return True
+        if len(s)==1:
+            return False
+        stack=[]
+        dict={']':'[','}':'{',')':'('}
+        for x in s:
+            if x not in dict:
+                stack.append(x)
+            elif stack and stack.pop(-1)==dict[x]:
+                continue
+            else:
+                return False
+        return not stack
