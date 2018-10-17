@@ -1,0 +1,21 @@
+第一次尝试，692ms。
+  
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        b = []
+        for i in range(len(s)):
+  	        b.append('')
+	        for j in s[i:]:
+		        if j not in b[i]:
+			        b[i] += j
+		        else:
+			        break
+        max = 0
+        for i in b:
+            if len(i)>max:
+                max = len(i)
+        return max
